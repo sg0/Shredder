@@ -47,9 +47,11 @@ API
 
 After installation, you can use shredder as an external library by including "shredder.h" in your program, and then compiling with -lshredder flag. API routines with their arguments are as follows.
 
-**status shredder_read_graph(int gtype, int nrows, int ncols, int nnz, int* rowidx, int* colptr)**
+**status shredder_read_graph(int gtype, int nrows, int ncols, int nnz, int\* rowidx, int\* colptr)**
 
-	This function reads a grid graph in CSR format into shredder's memory (will copy the graph into dynamically allocated memory). Caller is reponsible for calling shredder_delete_graph to clear the allocated memory. Succesful invocation will return SHREDDER_TOKEN_SUCCESS.
+	This function reads a grid graph in CSR format into shredder's memory (will copy the graph 
+	into dynamically allocated memory). Caller is reponsible for calling shredder_delete_graph 
+	to clear the allocated memory. Succesful invocation will return SHREDDER_TOKEN_SUCCESS.
 
 	- gtype : can only be one of following SHREDDER_GTYPE_ 
 								SHREDDER_GTYPE_RG (Rectangular grid graphs)
@@ -66,7 +68,10 @@ After installation, you can use shredder as an external library by including "sh
 
 **status shredder_stars(int\* size, int \*\* decomposition, int\*\* rowidx, int\*\* colptr)**
 
-	Decomposes the graph loaded into Shredder's memory into stars, and saves in the arguments passed, the graph in Shredder's memory will be kept intact, the caller is responsible for freeing the memory used for storing the decompositions, once the need is over. This can be conveniently done using shredder_delete_stars
+	Decomposes the graph loaded into Shredder's memory into stars, and saves in the arguments
+	passed, the graph in Shredder's memory will be kept intact, the caller is responsible for
+	freeing the memory used for storing the decompositions, once the need is over. This can be
+	conveniently done using shredder_delete_stars
 
 	- size : Address of the variable where size of the decomposition will be stored.
 	- decomposition : Address of a pointer where an array of decompositions will be stored. 
@@ -81,16 +86,24 @@ After installation, you can use shredder as an external library by including "sh
 
 **status shredder_cliques(int\* size, int\*\*\* decomposition)**
 
-	Decomposes the graph loaded into Shredder's memory into cliques (right now only triangles), and saves in the arguments passed, the graph in Shredder's memory will be keet intact, the caller is reposible for freeing the memory used for storing the decompositions, once the need is over. This can be conveniently done using shredder_delete_cliques
+	Decomposes the graph loaded into Shredder's memory into cliques (right now only triangles), 
+	and saves in the arguments passed, the graph in Shredder's memory will be keet intact, 
+	the caller is reposible for freeing the memory used for storing the decompositions, once 
+	the need is over. This can be conveniently done using shredder_delete_cliques.
 
 	- size : Address of the variable where size of the decomposition  will be stored.
-	- decomposition : Address of a double pointer where a 2D array of decompositions will be stored. 				   The array will contain indices of the rowidx corresponding the vertices picked 					from graph loaded through shredder_read_graph.
+	- decomposition : Address of a double pointer where a 2D array of decompositions will be stored.
+					  The array will contain indices of the rowidx corresponding the vertices 
+					  picked from graph loaded through shredder_read_graph.
 					  Each row in the array will contain a clique.
  
 
 **double shredder_decomposition_time()**
 
-	Will return the time spend for decomposing a graph already loaded into Shredder's memoroy. This function can be used either for star or clique decomposition. The function should be called after the call of shredder_stars or shredder_cliques. Timing information will be lost once shredder_delete_graph is called. Unit of time is second.
+	Will return the time spend for decomposing a graph already loaded into Shredder's memoroy. 
+	This function can be used either for star or clique decomposition. The function should be
+	called after the call of shredder_stars or shredder_cliques. Timing information will
+	be lost once shredder_delete_graph is called. Unit of time is second.
 
 **status shredder_delete_graph()**
 
@@ -117,7 +130,9 @@ After installation, you can use shredder as an external library by including "sh
 
 **status shredder_create_graph(int gtype, int nrows, int ncols, int\* nnz, int\*\* rowidx, int\*\* colptr)**
 	
-	Creates a regular grid graph in CSR format, which can be passed to shredder_read_graph. This is a conveient routine for creating a regular grid graph of graph type defined above (GTYPE_...). If the grid graph has missing edges, then this should not be used. 
+	Creates a regular grid graph in CSR format, which can be passed to shredder_read_graph.
+	This is a conveient routine for creating a regular grid graph of graph type defined 
+	above (GTYPE_...). If the grid graph has missing edges, then this should not be used. 
  
 	- gtype : can only be one of SHREDDER_GTYPE_ (e.g. SHREDDER_GTYPE_RG_NWSE)
 	- nrows : number of rows in the grid
