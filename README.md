@@ -64,7 +64,7 @@ After installation, you can use shredder as an external library by including "sh
 	- rowidx : CSR egde pointers
 	- colptr : CSR edges
 
-**status shredder_stars(int* size, int ** decomposition, int ** rowidx, int ** colptr)**
+**status shredder_stars(int\* size, int \*\* decomposition, int\*\* rowidx, int\*\* colptr)**
 
 	Decomposes the graph loaded into Shredder's memory into stars, and saves in the arguments passed, the graph in Shredder's memory will be kept intact, the caller is responsible for freeing the memory used for storing the decompositions, once the need is over. This can be conveniently done using shredder_delete_stars
 
@@ -79,7 +79,7 @@ After installation, you can use shredder as an external library by including "sh
 			   caller will need to pass address of a pointer
 
 
-**status shredder_cliques(int* size, int *** decomposition)**
+**status shredder_cliques(int\* size, int\*\*\* decomposition)**
 
 	Decomposes the graph loaded into Shredder's memory into cliques (right now only triangles), and saves in the arguments passed, the graph in Shredder's memory will be keet intact, the caller is reposible for freeing the memory used for storing the decompositions, once the need is over. This can be conveniently done using shredder_delete_cliques
 
@@ -96,7 +96,7 @@ After installation, you can use shredder as an external library by including "sh
 
 	Clears shredder's memory, shredder can be reused for loading a new graph after this operation
  
-**status shredder_delete_stars(int * size, int ** decomposition, int ** rowidx, int ** colptr)**
+**status shredder_delete_stars(int\* size, int\*\* decomposition, int\*\* rowidx, int\*\* colptr)**
 
 	Clears memory allocated for stars through shreder_stars.
 
@@ -107,7 +107,7 @@ After installation, you can use shredder as an external library by including "sh
 	- colptr : caller will need to pass address of a pointer							
 
 
-**status shredder_delete_cliques(int * size, int *** decomposition)**
+**status shredder_delete_cliques(int\* size, int\*\*\* decomposition)**
 
 	Clears memory allocated for cliquess through shreder_cliques
 
@@ -115,7 +115,7 @@ After installation, you can use shredder as an external library by including "sh
 	- decomposition : Address of a double pointer where a 2D array of decompositions 
  	 			  is stored.
 
-**status shredder_create_graph(int gtype, int nrows, int ncols, int* nnz, int ** rowidx, int ** colptr)**
+**status shredder_create_graph(int gtype, int nrows, int ncols, int\* nnz, int\*\* rowidx, int\*\* colptr)**
 	
 	Creates a regular grid graph in CSR format, which can be passed to shredder_read_graph. This is a conveient routine for creating a regular grid graph of graph type defined above (GTYPE_...). If the grid graph has missing edges, then this should not be used. 
  
@@ -130,11 +130,11 @@ After installation, you can use shredder as an external library by including "sh
 
 	Prints graph loaded into shredder's memory
 
-**status shredder_print_stars(int size, int* decomposition, int* rowidx, int* colptr)**
+**status shredder_print_stars(int size, int\* decomposition, int\* rowidx, int\* colptr)**
 
 	Prints all the stars and associated edges of the stars
  
-**status shredder_print_cliques(int size, int** decomposition)**
+**status shredder_print_cliques(int size, int\*\* decomposition)**
 	
 	Prints all the cliques of the decomposition array, right now only prints traingles for each decomposition
  
