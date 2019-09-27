@@ -46,7 +46,11 @@ int main()
 		
 		//shredder_print_stars(count, decomposition, rowidx, colptr);
 		
-		shredder_delete_stars(&count, &decomposition, &rowidx, &colptr);
+		if (shredder_delete_stars(&count, &decomposition, &rowidx, &colptr) != SHREDDER_TOKEN_SUCCESS ){
+			
+			printf("*** Stars deletion Failed ***\n");
+			exit(EXIT_FAILURE);		
+		}
 	}
 	else if (dtype == SHREDDER_DTYPE_CLIQUE 
 		&& shredder_cliques(&count, &triangles) == SHREDDER_TOKEN_SUCCESS) {
@@ -55,10 +59,22 @@ int main()
 		
 		//shredder_print_cliques(count, triangles);
 
-		shredder_delete_cliques(&count, &triangles);
+		if (shredder_delete_cliques(&count, &triangles) != SHREDDER_TOKEN_SUCCESS) {
+
+			printf("*** Cliques deletion Failed ***\n");
+			exit(EXIT_FAILURE);	
+		}
+	}
+	else {
+
+		printf("*** Decomposition Failed ***\n");
+		exit(EXIT_FAILURE);	
 	}
 
-	shredder_delete_graph();
+	if (shredder_delete_graph() != SHREDDER_TOKEN_SUCCESS) {
 
+		printf("*** Graph deletion Failed ***\n");
+		exit(EXIT_FAILURE);	
+	}
 	return 0;
 }
