@@ -164,55 +164,55 @@ Several test prgorams are provided in test directory. These can be compiled and 
 
 The test programs provided are as follows. 
 
-All test programs prompt for 3 inputs except the last one.
-	< graph_type > <#rows> <#columns>. 
+All test programs prompt for 3 inputs except the last one: < graph_type > <#rows> <#columns>. 
 
-	graph_type is one of RG_GTYPE_, [0-3] 
-	\#rows is number of rows (>1)
-	\#columns is number of columns (>1)
+	graph_type: one of RG_GTYPE_, have to be between [0-3] 
+	#rows: number of rows (>1)
+	#columns: number of columns (>1)
 
 
 **create.c**
 
-This is a test program to check the convenient routine of creating regualr grid graphs in CSR format (shredder_create_graph).
+	This is a test program to check the routine of creating regualr grid graphs in CSR format (shredder_create_graph).
 
-Successful invocation on shredder_create_graph will return SHREDDER_TOKEN_SUCCESS, and load the CSR into argument passes, the CSR can be then passed to other Shredder routines. Notice that this will only create regular graphs.
+	Successful invocation on shredder_create_graph will return SHREDDER_TOKEN_SUCCESS, and load the CSR into argument passed, the CSR can then be passed to other Shredder routines. Notice that shredder_create_graph can only create regular graphs.
 
 **read.c**
 
-This is test program to test loading a CSR graph into Shredder's memory (shredder_read_graph), as well as cleaning Shredder's memory (shredder_delete_graph). 
+	This is test program to test loading a CSR graph into Shredder's memory (shredder_read_graph), as well as cleaning Shredder's memory (shredder_delete_graph). 
 
-Successful invocation of shredder routine will return SHREDDER_TOKEN_SUCCESS, and load the CSR into Shredder's memory. After that any suitable decomposition routine can be invoked to get desired decomposition.
+	Successful invocation of shredder's routine will return SHREDDER_TOKEN_SUCCESS, and load the CSR into Shredder's memory. After that any suitable decomposition routine can be invoked to get desired decomposition.
 
-This routine should be carefully coupled with call to shredder_delete_graph, otherwise there will be memory leaks. If this is the only call to shredder_read_graph then there should be single call to shredder_delete_graph at the end of using Shredder. Otherwise every successive call to shredder_read_graph should be precedded by a call to shredder_delete_graph.
+	This routine should be carefully coupled with call to shredder_delete_graph, otherwise there will be memory leaks. If this is the only call to shredder_read_graph then there should be single call to shredder_delete_graph at the end of using Shredder. Otherwise every successive call to shredder_read_graph should be precedded by a call to shredder_delete_graph.
 
-There is a routine in the library to print the CSR graph loaded into shredder using shredder_print_graph.
+	There is a routine (shredder_print_graph) in the library to print the CSR graph loaded into Shredder.
 
 **stars.c**
 
-This is test program to grab a star decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
+	This is test program to grab a star decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
 
-This program also uses a library rouinte shredder_delete_stars to clean the memory used to store decomposition.
+	This program also uses a library rouinte shredder_delete_stars to clean the memory used to store decomposition.
 
 **cliques.c**
-This is test program to grab a clique decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
 
-Notice that SHREDDER_GTYPE_RG does not support clique decomposition.
+	This is test program to grab a clique decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
 
-This program also uses a library rouinte shredder_delete_cliques to clean the memory used to store decomposition.
+	Notice that SHREDDER_GTYPE_RG does not support clique decomposition.
+
+	This program also uses a library rouinte shredder_delete_cliques to clean the memory used to store decomposition.
 
 **example.c**
-This is test program which usages multiple routines of Shredder at once. 
+	This is test program which usages multiple routines of Shredder at once. 
 
-This test program prompts for 4 inputs.
-	< graph_type > < decompostion_type > <#rows> <#columns>. 
+	This test program prompts for 4 inputs.
+		< graph_type > < decompostion_type > <#rows> <#columns>. 
 
-	graph_type is one of RG_GTYPE_, [0-3] 
-	decomposition_type is either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
-	\#rows is number of rows (>1)
-	\#columns is number of columns (>1)
+		graph_type is one of RG_GTYPE_, [0-3] 
+		decomposition_type is either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
+		\#rows is number of rows (>1)
+		\#columns is number of columns (>1)
 
-On a valid set of input it will print star or clique decomposition time of a graph selected through input. If anything goes wrong the program will terminate with EXIT_FAILURE status.
+	On a valid set of input it will print star or clique decomposition time of a graph selected through input. If anything goes wrong the program will terminate with EXIT_FAILURE status.
 
 &nbsp;  
 &nbsp;  
