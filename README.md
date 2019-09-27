@@ -22,8 +22,9 @@ To download, and install Shredder run following instructions in terminals.
 
     cd              		
     git clone https://github.com/neo8git/Shredder.git   #Download Shredder
-    ./configure                   # generate make files
-    make install       			  # install shredder into system library
+    cd Shredder 					# cd into Shredder
+    ./configure						# generate make files
+    make install 					# install shredder into system library
 
 To check shredder distribution run followng instructions in terminal. This will also give a distributable zipped copy of shredder. Notice that this will prompt inputs for all test programs descibed below.
 
