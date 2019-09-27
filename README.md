@@ -164,7 +164,7 @@ The test programs provided are as follows.
 
 All test programs prompt for 3 inputs except the last one: < graph_type > <#rows> <#columns>. 
 
-	graph_type: one of RG_GTYPE_, have to be between [0-3] 
+	graph_type: one of SHREDDER_GTYPE_, have to be between [0-3] 
 	#rows: number of rows (>1)
 	#columns: number of columns (>1)
 
