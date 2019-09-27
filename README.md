@@ -20,11 +20,10 @@ Downloading and Installating Shredder
 =====================================
 To download, and install Shredder run following instructions in terminals.
 
-    cd              
+    cd              		
     git clone https://github.com/neo8git/Shredder.git   #Download Shredder
     ./configure                   # generate make files
-    make install       			  # install shredder into 
-    make                          # compile the code
+    make install       			  # install shredder into system library
 
 To check shredder distribution run followng instructions in terminal. This will give a distributable zipped copy of shredder. 
 
@@ -154,135 +153,66 @@ After installation, you can use shredder as an external library by including "sh
 	Prints all the cliques of the decomposition array, right now only prints traingles for each decomposition
  
 
-	$./Shredder -r <#rows> -c <#columns> [-g <graph_type>] [-d <methods>] [-v] ...
+Usage
+=====
 
-### DISPLAY HELP 
-	$./Shredder
+Several test prgorams are provided in test directory. These can be compiled and run using shredder library as follows.
 
-### OPTIONs 
-		
-	<#rows>:  	 Number of rows in the grid
-	<#columns>:  Number of columns in the grid
-	<graph_type>  :  RG
-	               RG_NWSE,
-	               RG_SWNE,
-	               RG_D,
-		       ...
-	<methods>   :  S
-	               T
-	-v          :  # verbose for debug infomation
+	cd ../test
+	gcc -o exec test_program.c -lshredder
+	./exec
 
-### EXAMPLES:
-	
-	./Shredder -r 5 -c 5 -g RG -v
-    ./Shredder -r 5000 -c 2000 -g RG_NWSE -d S
-    ./Shredder -r 200 -c 400 -g RG_D -d S
-    ./Shredder -r 4 -c 6 -g RG_SWNE -d T -v
-	
-	
-### EXAMPLE OUTPUT
+The test programs provided are as follows. 
 
-	5 X 5 rectangular grid graph in csr: 
+All test programs prompt for 3 inputs except the last one.
+	< graph_type > <#rows> <#columns>. 
 
-	1: 2 6 
-	2: 1 3 7 
-	3: 2 4 8 
-	4: 3 5 9 
-	5: 4 10 
-	6: 1 7 11 
-	7: 2 6 8 12 
-	8: 3 7 9 13 
-	9: 4 8 10 14 
-	10: 5 9 15 
-	11: 6 12 16 
-	12: 7 11 13 17 
-	13: 8 12 14 18 
-	14: 9 13 15 19 
-	15: 10 14 20 
-	16: 11 17 21 
-	17: 12 16 18 22 
-	18: 13 17 19 23 
-	19: 14 18 20 24 
-	20: 15 19 25 
-	21: 16 22 
-	22: 17 21 23 
-	23: 18 22 24 
-	24: 19 23 25 
-	25: 20 24 
+	graph_type is one of RG_GTYPE_, [0-3] 
+	\#rows is number of rows (>1)
+	\#columns is number of columns (>1)
 
-	#rows: 5 #cols: 5 Decomposition Size: 12 Decomposition Time: 7e-06
 
-	5 X 5 rectangular grid graph decomposed to S4 (5 point stencil): 
+**create.c**
 
-	2: 1 3 7 
-	4: 3 5 9 
-	6: 1 7 11 
-	8: 3 7 9 13 
-	10: 5 9 15 
-	12: 7 11 13 17 
-	14: 9 13 15 19 
-	16: 11 17 21 
-	18: 13 17 19 23 
-	20: 15 19 25 
-	22: 17 21 23 
-	24: 19 23 25 
+This is a test program to check the convenient routine of creating regualr grid graphs in CSR format (shredder_create_graph).
 
-	#rows: 5000 #cols: 2000 Decomposition Size: 6666666 Decomposition Time: 0.141501
+Successful invocation on shredder_create_graph will return SHREDDER_TOKEN_SUCCESS, and load the CSR into argument passes, the CSR can be then passed to other Shredder routines. Notice that this will only create regular graphs.
 
-	#rows: 200 #cols: 400 Decomposition Size: 60000 Decomposition Time: 0.001285
+**read.c**
 
-	4 X 6 rectangular grid graph with SWNE diagonal in csr: 
+This is test program to test loading a CSR graph into Shredder's memory (shredder_read_graph), as well as cleaning Shredder's memory (shredder_delete_graph). 
 
-	1: 2 7 8 
-	2: 1 3 8 9 
-	3: 2 4 9 10 
-	4: 3 5 10 11 
-	5: 4 6 11 12 
-	6: 5 12 
-	7: 1 8 13 14 
-	8: 1 2 7 9 14 15 
-	9: 2 3 8 10 15 16 
-	10: 3 4 9 11 16 17 
-	11: 4 5 10 12 17 18 
-	12: 5 6 11 18 
-	13: 7 14 19 20 
-	14: 7 8 13 15 20 21 
-	15: 8 9 14 16 21 22 
-	16: 9 10 15 17 22 23 
-	17: 10 11 16 18 23 24 
-	18: 11 12 17 24 
-	19: 13 20 
-	20: 13 14 19 21 
-	21: 14 15 20 22 
-	22: 15 16 21 23 
-	23: 16 17 22 24 
-	24: 17 18 23 
+Successful invocation of shredder routine will return SHREDDER_TOKEN_SUCCESS, and load the CSR into Shredder's memory. After that any suitable decomposition routine can be invoked to get desired decomposition.
 
-	#rows: 4 #cols: 6 Decomposition Size: 20 Decomposition Time: 0.000151
+This routine should be carefully coupled with call to shredder_delete_graph, otherwise there will be memory leaks. If this is the only call to shredder_read_graph then there should be single call to shredder_delete_graph at the end of using Shredder. Otherwise every successive call to shredder_read_graph should be precedded by a call to shredder_delete_graph.
 
-	4 X 6 rectangular grid graph with SWNE diagonal decomposed to triangles: 
+There is a routine in the library to print the CSR graph loaded into shredder using shredder_print_graph.
 
-	1 2 7 
-	2 3 8 
-	3 4 9 
-	4 10 9 
-	7 8 13 
-	8 9 14 
-	9 15 14 
-	10 16 15 
-	13 14 19 
-	14 20 19 
-	15 21 20 
-	16 22 21 
-	4 5 10 
-	5 6 11 
-	6 12 11 
-	10 11 16 
-	11 17 16 
-	12 18 17 
-	17 23 22 
-	18 24 23
+**stars.c**
 
+This is test program to grab a star decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
+
+This program also uses a library rouinte shredder_delete_stars to clean the memory used to store decomposition.
+
+**cliques.c**
+This is test program to grab a clique decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
+
+Notice that SHREDDER_GTYPE_RG does not support clique decomposition.
+
+This program also uses a library rouinte shredder_delete_cliques to clean the memory used to store decomposition.
+
+**example.c**
+This is test program which usages multiple routines of Shredder at once. 
+
+This test program prompts for 4 inputs.
+	< graph_type > < decompostion_type > <#rows> <#columns>. 
+
+	graph_type is one of RG_GTYPE_, [0-3] 
+	decomposition_type is either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
+	\#rows is number of rows (>1)
+	\#columns is number of columns (>1)
+
+On a valid set of input it will print star or clique decomposition time of a graph selected through input. If anything goes wrong the program will terminate with EXIT_FAILURE status.
 
 &nbsp;  
 &nbsp;  
