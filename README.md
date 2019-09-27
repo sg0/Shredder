@@ -203,10 +203,10 @@ This is test program which usages multiple routines of Shredder at once.
 
 This test program prompts for 4 inputs: < graph_type > < decompostion_type > <#rows> <#columns>. 
 
-	graph_type is one of RG_GTYPE_, [0-3] 
-	decomposition_type is either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
-	\#rows is number of rows (>1)
-	\#columns is number of columns (>1)
+	graph_type: one of SHREDDER_GTYPE_, [0-3] 
+	decomposition_type: either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
+	#rows: number of rows (>1)
+	#columns: number of columns (>1)
 
 On a valid set of input it will print star or clique decomposition time of a graph passed as an input. If anything goes wrong the program will terminate with EXIT_FAILURE status.
 
