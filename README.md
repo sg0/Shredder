@@ -2,7 +2,6 @@
 1. [Shredder](#shredder)
 2. [Download and Installation](#downloading-and-installing-shredder)  
 3. [API](#api)
-3. [Usage](#usage)
 &nbsp;
 
 Shredder
@@ -26,10 +25,10 @@ To download, and install Shredder run following instructions in terminals.
     ./configure						# generate make files
     make install 					# install shredder into system library
 
-To check shredder distribution run followng instructions in terminal. This will also give a distributable zipped copy of shredder. Notice that this will prompt inputs for all test programs descibed below.
+To check shredder distribution run followng instructions in terminal.
 
 	cd              			  # cd into the shredder directory 
-    make distcheck       		  # check Shredder distribution
+    make check       		  # check Shredder distribution
 
 To uninstall shredder run followng instructions in terminal.  
 
@@ -150,66 +149,6 @@ Prints all the stars and associated edges of the stars
 	
 Prints all the cliques of the decomposition array, right now only prints traingles for each decomposition
  
-
-Usage
-=====
-
-Several test prgorams are provided in test directory. These can be compiled and run using shredder library as follows.
-
-	cd ../test
-	gcc -o exec test_program.c -lshredder
-	./exec
-
-The test programs provided are as follows. 
-
-All test programs prompt for 3 inputs except the last one: < graph_type > <#rows> <#columns>. 
-
-	graph_type: one of SHREDDER_GTYPE_, have to be between [0-3] 
-	#rows: number of rows (>1)
-	#columns: number of columns (>1)
-
-
-**create.c**
-
-This is a test program to check the routine of creating regualr grid graphs in CSR format (shredder_create_graph).
-
-Successful invocation on shredder_create_graph will return SHREDDER_TOKEN_SUCCESS, and load the CSR into argument passed, the CSR can then be passed to other Shredder routines. Notice that shredder_create_graph can only create regular graphs.
-
-**read.c**
-
-This is test program to test loading a CSR graph into Shredder's memory (shredder_read_graph), as well as cleaning Shredder's memory (shredder_delete_graph). 
-
-Successful invocation of shredder's routine will return SHREDDER_TOKEN_SUCCESS, and load the CSR into Shredder's memory. After that any suitable decomposition routine can be invoked to get desired decomposition.
-
-This routine should be carefully coupled with call to shredder_delete_graph, otherwise there will be memory leaks. If this is the only call to shredder_read_graph then there should be single call to shredder_delete_graph at the end of using Shredder. Otherwise every successive call to shredder_read_graph should be precedded by a call to shredder_delete_graph.
-
-There is a routine (shredder_print_graph) in the library to print the CSR graph loaded into Shredder.
-
-**stars.c**
-
-This is test program to grab a star decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
-
-This program also uses a library rouinte shredder_delete_stars to clean the memory used to store decomposition.
-
-**cliques.c**
-
-This is test program to grab a clique decomposition of a graph loaded into Shredder's memory (using shredder_read_graph), as well as to get corresponding decomposition time. The decomposition will be loaded into the argument passed, and caller is reposible for freeing the memory associated with decomposition.
-
-Notice that SHREDDER_GTYPE_RG does not support clique decomposition.
-
-This program also uses a library rouinte shredder_delete_cliques to clean the memory used to store decomposition.
-
-**example.c**
-This is test program which usages multiple routines of Shredder at once. 
-
-This test program prompts for 4 inputs: < graph_type > < decompostion_type > <#rows> <#columns>. 
-
-	graph_type: one of SHREDDER_GTYPE_, [0-3] 
-	decomposition_type: either SHREDDER_DTYPE_STAR or SHREDDER_DTYPE_CLIQUE
-	#rows: number of rows (>1)
-	#columns: number of columns (>1)
-
-On a valid set of input it will print star or clique decomposition time of a graph passed as an input. If anything goes wrong the program will terminate with EXIT_FAILURE status.
 
 &nbsp;  
 &nbsp;  
