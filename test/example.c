@@ -18,8 +18,11 @@ int main()
 
 	int *rowidx, *colptr, *decomposition = NULL, **triangles = NULL;
 
-	printf("Graph Type?[0-3] Decompostion Type?{0,1} nrows? ncols?\n");
-	scanf("%d%d%d%d", &gtype, &dtype, &nrows, &ncols);
+	//printf("Graph Type?[0-3] Decompostion Type?{0,1} nrows? ncols?\n");
+	//scanf("%d%d%d%d", &gtype, &dtype, &nrows, &ncols);
+
+	gtype = 1; dtype = 1; nrows = 50; ncols = 50;
+
 
 	if (shredder_create_graph(gtype, nrows, ncols, &nnz, &rowidx, &colptr) != SHREDDER_TOKEN_SUCCESS) {
 		

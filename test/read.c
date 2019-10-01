@@ -18,9 +18,11 @@ int main()
 
 	int *rowidx, *colptr;
 
-	printf("Graph Type?[0-3] nrows? ncols?\n");
+	//printf("Graph Type?[0-3] nrows? ncols?\n");
 
-	scanf("%d%d%d", &gtype,&nrows,&ncols);
+	//scanf("%d%d%d", &gtype,&nrows,&ncols);
+
+	gtype = 1; nrows = 50; ncols = 50;
 
 	if (shredder_create_graph(gtype, nrows, ncols, &nnz, &rowidx, &colptr) != SHREDDER_TOKEN_SUCCESS) {
 		
